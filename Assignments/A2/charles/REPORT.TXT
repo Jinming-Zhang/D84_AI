@@ -1,0 +1,192 @@
+CSC D84 - Artificial Intelligence
+
+Assignment 2 - MiniMax and Game Trees 
+
+This assignment is worth:
+
+10 AIUs (Artificial Intelligence Units)
+toward the 35% assignment component of your final
+mark.
+
+________________________________________________
+
+Student Name 1 (last, first): Xu, Charles
+
+Student Name 2 (last, first): Zhang, Jinming
+
+Student number 1: 1004264271
+
+Student number 2: 1000997503
+
+UTORid 1: xucharle
+
+UTORid 2: zhan2754
+
+READ THIS AND SIGN YOUR NAME AT THE END:
+
+ I certify that I have read the UTSC code on academic
+honesty and plaguarism. All work submitted as part
+of this assignment is my own.
+
+	Signed: _Charles_Xu__	_Jinming_Zhang__
+
+
+(-5 marks for failing to provide the identifying
+ information requested above)
+________________________________________________
+
+Answer the following questions. Be concise and clear
+but explain carefully when needed.
+
+1 .- (5 marks) Explain the design of your utility function.
+     Describe all the factors that influence its value, and
+     how their influence was evaluated and integrated into
+     a single, meaningful value. Convince us that your utility
+     makes sense!
+
+      Utility -> (Positive favours Mouse) & (Negative favours Cat)
+
+      Our utility function primarily focuses on the equation: ``return 0 - min_cheese_distance - depth;``
+      Where "min_cheese_distance" is the closest distance to a cheese and "depth" is the depth of the MiniMax recursion.
+
+      "min_cheese_distance" is found by a UCS search that terminates after
+      the first cheese has been found. This will always return the min distance.
+
+      Since mouse plays based on MAX, we negate the "min_cheese_distance" variable.
+      We prefer a shorter distance to the cheese over a longer distance.
+      In this case, a variable closer to 0 is better.
+
+      We factor in depth because if the mouse has multiple ways to get to a
+      single state, we prefer the way that gets us there in the least
+      amount of steps (or depth).
+
+      At terminal nodes...
+
+            ... if a cat eats the mouse, we return (INT_MIN).
+            Because the game will end. This is the worst possible outcome.
+            INT_MIN is our way of expressing negative infinity in terms of an int.
+
+            ... if a mouse eats a cheese, we return (-depth).
+            Because if the mouse has many ways to reach the cheese,
+            we prefer the one with the shortest amount of steps, or
+            in other words, the smallest depth. Since the mouse plays
+            based on MAX, we negate the "depth" variable.
+
+2 .- (2 marks) Ignoring computation time, what is the effect of
+     search depth (number of turns) on the chances of the mouse
+     winning the game. 
+
+     The higher the search depth, the greater the chance of survival.
+     Essentially, the mouse will be able to see further into
+     the future and make better decisions.
+     
+     If the depth is not high enough, the mouse
+     can path themselves towards a dead end without knowing. If
+     you have an infinitely big enough depth, given that the mouse doesn't
+     start in the losing state, it is possible for the mouse to constantly
+     evade all cats (run around in circles) or eventually win the game.
+
+3 .- (2 marks) What situations will cause your mouse to lose?
+     can these be fixed either with the utility function, or
+     by changing the search depth? if so, how?
+
+      Suppose that there is a cheese located at a location that leads
+      to a dead end. The mouse grabs the cheese (because the utility function
+      will favour movement towards cheese) but then is cornered by cats. 
+
+      Without a big enough search depth for the mouse to see the "outcome" of
+      going for the cheese in the dead end, they will certainly die. We can
+      prevent this by providing the mouse with a bigger search depth.
+
+4 .- (2 marks) Compare cats with smartness=.8 against cats with
+     smartness=1 - which are harder for your mouse to beat?
+     why do you think that is?
+
+      smartness=1 is harder to beat.
+
+      Essentially, the smartness of a cat can be described as how quickly
+      they can close the distance between them and you.
+
+      smartness=1 give us a cat that runs towards us and stays on our tails.
+      This makes it very hard to go for cheese while maintaining the distance
+      between the cat and the mouse.
+
+      smartness=0.8 has more noise. The cat "sometimes" does not make the
+      optimal move and gives the mouse opportunities to distance themselves.
+
+5 .- (2 marks) Can the mouse be made unbeatable by having an
+     optimal utility function?
+
+      This answer really depends on the state of the game.
+
+      What is the search depth of the algorithm using this utility function?
+
+      Are there enough cats that can effectively corner the mouse given
+      that they work together? Will the mouse eventually lose no matter what?
+
+      So, in hindsight, the answer's no. If the cat is using an equally
+      powerful/optimal utility function, the winner goes down
+      to the initial state of the game.
+
+6 .- (2 bonus marks) Could a human playing the game in place
+      of the mouse do better than your code? (yes, no, and
+      a reasonable explanation of why)
+
+      I mean, maybe...? It depends on what search depth we use.
+
+      This is a pretty static and deterministic game so humans
+      can normally eyeball the most optimal movement in the maze.
+
+      Human perception might be able to make a better decision than
+      an algorithm with a small search depth.
+
+      Computers have to brute force over every movement.
+
+      If we use a big enough search depth, then the computer will
+      make the most optimal decision at all times. In turn, they
+      will "beat" the humans, who are acceptable to noise or make mistakes.
+_____________________________________________________
+
+Mark with an 'x' where appropriate. If something is only
+working partially, briefly describe what works, what
+doesn't work, or what problems exist.
+	
+	Complete/Working	Partial		Not done
+
+Utility     X
+ function
+
+MiniMax     X
+
+Alpha/Beta  X
+ pruning
+_____________________________________________________
+
+Marking:
+
+(10 marks) Implemented a non-trivial, clever, and
+           effective utility function. It allows the
+           mouse to win the game often. 
+
+(10 marks) Correctly implementing MiniMax. The algorithm
+           should produce the expected behaviour. The
+           mouse should take a reasonable path to the
+           cheese and avoid cats. The cats will try to
+           catch the mouse. Mouse is not easy to catch.
+
+(10 marks) Implemented alpha-beta pruning. The algorithm
+           significantly reduces the amount of search
+           while producing identical results as those
+           from standard MiniMax 
+
+(15 marks) Competitive (TA assigned) based on how smart
+           your mouse is (this is related to your
+           utility function above!)
+
+(15 marks) Answers in this report file
+
+(2 bonus)  Bonus!
+
+Total for A2:       / out of 60
+
+

@@ -1,0 +1,6 @@
+Problem:
+1) Sampling process needed with observed w=1, r=0, the weight of sample c=0, s=1, r=0, w=1 will be:
+P(c=0, s=1, r=0,w=1)
+weight = 1*P(r=0 | c=0) * P(w=1 | s=1, r=0)
+ 	   = 1 * 0.99 * 0.95
+ 	   = 0.9405
